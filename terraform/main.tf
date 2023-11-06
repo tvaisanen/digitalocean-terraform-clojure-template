@@ -51,3 +51,7 @@ resource "digitalocean_app" "app" {
     }
   }
 }
+
+output "app_url" {
+  value = digitalocean_app.app.live_url
+}
