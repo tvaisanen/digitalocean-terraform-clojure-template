@@ -3,18 +3,21 @@
             [next.jdbc :as jdbc])
   (:gen-class))
 
-(def port (Integer/parseInt (System/getenv "PORT")))
+(defn get-port []
+  (Integer/parseInt (System/getenv "PORT")))
 
-(def db {:dbtype "postgres"
-         :jdbcUrl (System/getenv "JDBC_DATABASE_URL")})
+(defn get-db-conf []
+  {:dbtype "postgres"
+   :jdbcUrl (System/getenv "JDBC_DATABASE_URL")})
 
-(def ds (jdbc/get-datasource db))
+(defn datasource []
+  (jdbc/get-datasource (get-db-conf)))
 
 (defn app [_request]
-  (let [db-version (jdbc/execute! ds ["SELECT version()"])]
+  (let [db-version (jdbc/execute! (datasource) ["SELECT version()"])]
     {:status  200
      :headers {"Content-Type" "application/edn"}
      :body    (str db-version)}))
 
-(defn run! [& _args]
-  (jetty/run-jetty #'app {:port port}))
+(defn -main [& _args]
+  (jetty/run-jetty #'app {:port (get-port)}))

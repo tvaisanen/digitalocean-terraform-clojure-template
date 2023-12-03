@@ -7,4 +7,8 @@
         org.postgresql/postgresql {:mvn/version "42.2.10"}}
 
  :aliases {:run {:main-opts ["-m" "main"]
-                 :exec-fn   main/run!}}}
+                 :exec-fn   main/run!}
+
+           :build {:deps {io.github.clojure/tools.build
+                           {:git/tag "v0.9.6" :git/sha "8e78bcc"}}
+                   :ns-default build}}}
