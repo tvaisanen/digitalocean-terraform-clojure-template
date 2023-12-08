@@ -1,5 +1,4 @@
-FROM clojure:openjdk-17-tools-deps-buster
-
+FROM clojure:openjdk-17-tools-deps-slim-buster
 WORKDIR app
 COPY . .
 
