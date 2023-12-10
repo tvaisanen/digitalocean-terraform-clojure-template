@@ -5,7 +5,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: docker/buster.Dockerfile
+      dockerfile: docker/dev.Dockerfile
       tags:
         - "registry.digitalocean.com/clojure-sample-app/dev"
     environment:
