@@ -1,3 +1,6 @@
 *.tfstate*
 .terraform*
 .cpcache
+cljs-runtime
+node_modules
+compiled-resources

@@ -3,6 +3,9 @@ resource "digitalocean_project" "project" {
   description = "description"
   environment = "development"
   purpose     = "template-app"
+  resources = [
+    digitalocean_app.app.urn,
+  ]
 }
 
 resource "digitalocean_container_registry" "app_registry" {
@@ -41,7 +44,7 @@ resource "digitalocean_app" "app" {
       source_dir = "api/"
       http_port  = 8000
 
-      run_command = "clj -X:run"
+      run_command = "clojure -X:run"
     }
 
     database {
