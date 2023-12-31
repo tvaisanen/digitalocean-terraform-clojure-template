@@ -1,0 +1,21 @@
+{:source-paths ["src/dev"
+                "src/main"
+                "src/test"]
+
+ :dependencies [[binaryage/devtools "0.9.7"]
+                [cider/cider-nrepl "0.36.0"]
+                ;; React wrapper
+                [lilactown/helix "0.1.5"]]
+
+ :dev-http {3000
+            {:root "public"
+             ;; when in use, the index.html needs
+             ;; to be explicitly loaded by name
+             :proxy-url "http://localhost:8000"}}
+
+ :builds
+ {:app {:target     :browser
+        :output-dir "public/js"
+        :asset-path "/js"
+        :modules {:main {:entries [app.core]}}
+        :devtools {:preloads [devtools.preload]}}}}
