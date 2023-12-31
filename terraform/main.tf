@@ -41,7 +41,7 @@ resource "digitalocean_app" "app" {
       source_dir = "api/"
       http_port  = 8000
 
-      run_command = "clj -X:run"
+      run_command = "clojure -X:run"
     }
 
     database {

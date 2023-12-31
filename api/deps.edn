@@ -1,14 +1,21 @@
-{:paths ["src"]
+{:paths ["src" "resources"]
 
  :deps {org.clojure/clojure {:mvn/version "1.11.0"}
         ring/ring-core {:mvn/version "1.6.3"}
         ring/ring-jetty-adapter {:mvn/version "1.6.3"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.2.659"}
-        org.postgresql/postgresql {:mvn/version "42.2.10"}}
+        org.postgresql/postgresql {:mvn/version "42.2.10"}
+        migratus/migratus {:mvn/version "1.5.4"}}
 
- :aliases {:run {:main-opts ["-m" "main"]
-                 :exec-fn   main/run!}
+ :aliases {:run
+           {:main-opts ["-m" "main"]
+            :exec-fn   main/-main}
 
-           :build {:deps {io.github.clojure/tools.build
-                           {:git/tag "v0.9.6" :git/sha "8e78bcc"}}
-                   :ns-default build}}}
+           :build
+           {:deps {io.github.clojure/tools.build
+                   {:git/tag "v0.9.6" :git/sha "8e78bcc"}}
+            :ns-default build}
+
+           :create-migration
+           {:exec-args {:name nil}
+            :exec-fn main/create-migration}}}
