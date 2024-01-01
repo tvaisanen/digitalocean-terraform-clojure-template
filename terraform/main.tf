@@ -19,6 +19,18 @@ resource "digitalocean_app" "app" {
       rule = "DEPLOYMENT_FAILED"
     }
 
+    static_site {
+      name            = "web"
+      source_dir      = "web"
+      output_dir      = "/web/public"
+      dockerfile_path = "web/Dockerfile"
+
+      git {
+        branch         = "blog-post-series-04"
+        repo_clone_url = "https://github.com/tvaisanen/digitalocean-terraform-clojure-template.git"
+      }
+    }
+
     service {
       name               = "api"
       instance_count     = 1
@@ -48,6 +60,30 @@ resource "digitalocean_app" "app" {
       name       = "starter-db"
       engine     = "PG"
       production = false
+    }
+
+    ingress {
+
+      rule {
+        component {
+          name = "api"
+        }
+        match {
+          path {
+            prefix = "/api"
+          }
+        }
+      }
+      rule {
+        component {
+          name = "web"
+        }
+        match {
+          path {
+            prefix = "/"
+          }
+        }
+      }
     }
   }
 }

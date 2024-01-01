@@ -10,7 +10,7 @@
   (let [[data set-data] (hooks/use-state {})]
     (hooks/use-effect
      :once
-     (-> (js/fetch "/api/whatever")
+     (-> (js/fetch "/api")
          (.then (fn [res] (. res text)))
          (.then (fn [response-string]
                   (set-data (edn/read-string response-string))))))
